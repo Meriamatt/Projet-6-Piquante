@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config()
 
 const app = express();
 app.use(express.json());
@@ -8,15 +9,18 @@ const sauceRoutes = require('./routes/sauces');
 const path = require('path');
 const helmet = require('helmet');
 
-mongoose.connect('mongodb+srv://MeriamAtt:Benammar20@meriamattcluster.3mqot.mongodb.net/test?retryWrites=true&w=majority', {
+
+
+
+mongoose.connect(`mongodb+srv://${process.env.DB_SRV_ADDRESS}:${process.env.DB_PASSWORD}@meriamattcluster.3mqot.mongodb.net/test?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-  app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
+//CORS authorization
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
