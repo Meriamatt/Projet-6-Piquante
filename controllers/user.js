@@ -16,7 +16,6 @@ exports.signup = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
   };
   exports.login = (req, res, next) => {
-    console.log('login');
     User.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {

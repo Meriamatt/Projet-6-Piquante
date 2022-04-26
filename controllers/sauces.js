@@ -44,7 +44,7 @@ exports.modifySauce = (req, res, next) => {
     const prodId = req.params.id;
      
     if(req.file) {
-        console.log('here');
+        
         Sauce.findById(prodId) // search the sauce which its id = prodId
         .then((sauce) => {
 
@@ -127,13 +127,16 @@ exports.likeSauce = (req, res, next) => {
             let newUsersLiked = sauce.usersLiked
             let newUsersDisliked = sauce.usersDisliked
             if (like === 1) {
+                console.log(1);
                 if (sauce.usersLiked.includes(userId)) {
                     newUsersLiked.splice(newUsersLiked.indexOf(userId), 1)
+                    console.log("userId deleted");
                 } else {
                     newUsersLiked.push(userId)
                 }
             }
             if (like === -1) {
+                console.log(-1);
                 if (sauce.usersDisliked.includes(userId)) {
                     newUsersDisliked.splice(newUsersDisliked.indexOf(userId), 1)
                 } else {
@@ -141,8 +144,10 @@ exports.likeSauce = (req, res, next) => {
                 }
             }
             if (like === 0) {
+                console.log(0);
                 if (sauce.usersLiked.includes(userId)) {
                     newUsersLiked.splice(newUsersLiked.indexOf(userId), 1)
+                    
                 }
                 if (sauce.usersDisliked.includes(userId)) {
                     newUsersDisliked.splice(newUsersDisliked.indexOf(userId), 1)
